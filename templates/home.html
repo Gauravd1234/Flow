@@ -10,7 +10,7 @@
     <!-- shows different html elements based on if username exists in the session (if user is logged in or not) -->
     {% if session.get('username') %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Flow</a>
+            <a class="navbar-brand" href="{{ url_for('home') }}">Flow</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
