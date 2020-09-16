@@ -51,11 +51,6 @@ def login():
         user = request.form["username"]
         key = request.form["password"]
 
-        if "username" in session:
-            return redirect(url_for("user", username = user))
-
-        
-        
         
         if len(User.query.filter_by(username=user).all()) > 0:
             if (User.query.filter_by(username=user).first().password) == key:
@@ -74,7 +69,10 @@ def login():
         
 
     else:
-            
+        if "username" in session:
+            flash("Already logged in", "info")
+            return redirect(url_for("user"))   
+
         return render_template("login.html")
 
 
