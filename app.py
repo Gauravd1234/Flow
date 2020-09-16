@@ -5,11 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "Flow"
-
-db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = app.secret_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy(app)
 
 class User(db.Model):
     # The id variable contains the id of every table and item in the database
@@ -31,16 +31,6 @@ class User(db.Model):
 def home():
     return render_template("home.html")
 
-@app.route("/user")
-def user():
-    
-    if "username" in session:
-        username = session["username"]
-        return render_template("user.html", username = username)   
-
-    else:
-        return redirect(url_for("login"))
-
 @app.route("/view")
 def view():
     return render_template("view.html", values = User.query.all())
@@ -54,25 +44,18 @@ def login():
         
         if len(User.query.filter_by(username=user).all()) > 0:
             if (User.query.filter_by(username=user).first().password) == key:
-                flash("Successfully signed in", "info")
+
                 session["username"] = user
-                session["logged_in"] = True
-                return redirect(url_for("user", username = user))
-
+                
+                flash("Successfully logged in!")
+                return redirect(url_for("home"))
             else:
-                flash("Credentials invalid", "info")
+                flash("Password doesn't match user!")
                 return redirect(url_for("login"))
-
         else:
-            flash("User not found", "info")
+            flash("User doesn't exist")
             return redirect(url_for("login"))
-        
-
     else:
-        if "username" in session:
-            flash("Already logged in", "info")
-            return redirect(url_for("user"))   
-
         return render_template("login.html")
 
 
@@ -84,7 +67,7 @@ def register():
         key = request.form["password"]
         
         if(len(User.query.filter_by(username=user).all()) > 0 or len(User.query.filter_by(email=email).all()) > 0):
-            flash("User already exists")
+            flash("Username or password already exists!")
             return redirect(url_for("registration"))
 
         else:
@@ -92,10 +75,10 @@ def register():
             db.session.add(new_user)
             db.session.commit()
 
-
             session["username"] = user
             session["logged_in"] = True
-
+            
+            flash("Successfully registered!")
             return redirect(url_for("home"))
 
     else:
@@ -104,10 +87,9 @@ def register():
 
 @app.route("/logout")
 def logout():
-    flash("Logged out successfully", "info")
-
     session.clear()
-    return redirect(url_for("login"))
+    flash("Successfully logged out!")
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     db.create_all()

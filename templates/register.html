@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}
-    Register
+{% block heading %}
+    <title>Register</title>
 {% endblock %}
 
 {% block content %}
-
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for msg in messages %}
-              <p>{{msg}}</p>
-            {% endfor %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         {% endif %}
     {% endwith %}
-
-    <div class="container">
+    <div class="form-container">
       <h1>Register</h1>
       <br>
       <form action= "#" method= "post">
-          <p><input type= "email" placeholder= "Email" name="email"></p>
-
-          <p><input type= "text" placeholder= "Username" name="username"></p>
-          
-          <p><input type= "password" placeholder= "Password" name="password"></p>
-            
-          <p><input class="btn btn-default" type= "submit" value="Register"></p>
-
+        <input type= "email" placeholder= "Email" name="email" required><br>
+        <input type= "text" placeholder= "Username" name="username" required><br>
+        <input type= "password" placeholder= "Password" name="password" required><br>
+        <input class="btn btn-default" type="submit" value="Register"><br>
+        <a href="{{ url_for('login')}}">Already have an account?</a>
       </form>
     
     </div>
