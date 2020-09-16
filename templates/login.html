@@ -6,22 +6,25 @@
 
 {% block content %}
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+              <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="container">
       <h1>Sign in</h1>
       <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-          <br>
-          <br>
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-          <br>
-          <br>
-        <input class="btn btn-default" type="submit" value="Login">
+      <form action= "#" method= "post">
+          <p><input type= "text" placeholder= "Username" name="username"></p>
+          
+          <p><input type= "password" placeholder= "Password" name="password"></p>
+            
+          <p><input class="btn btn-default" type= "submit" value="Sign In"></p>
+
       </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
+    
     </div>
 {% endblock %}
