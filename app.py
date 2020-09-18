@@ -84,6 +84,9 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/profile", methods = ['GET', 'POST'])
+def profile():
+    return render_template("profile.html")
 
 @app.route("/logout")
 def logout():
