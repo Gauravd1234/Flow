@@ -19,7 +19,7 @@ class User(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))
-
+    profile_pic = db.Column(db.LargeBinary); 
     def __init__(self, username, password, email):
         self.username = username
         self.email = email
