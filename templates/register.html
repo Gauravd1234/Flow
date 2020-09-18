@@ -1,11 +1,13 @@
-{% extends "home.html" %}
+{% extends "base.html" %}
 
-{% block title %}
-    Register
+{% block heading %}
+    <title>Flow</title>
 {% endblock %}
 
-{% block code %}
-    
+{% block content%}
+    {% with page='register' %}
+        {% include 'navbar.html' %}
+    {% endwith %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="alert alert-primary alert-dismissible fade show" role="alert">
