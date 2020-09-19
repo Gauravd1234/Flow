@@ -8,12 +8,14 @@
 
 {% block content %}
     
-    {% for i in val %}
-        {% for j in i %}
-
+    {% for i in val.keys() %}
+        <h1>{{i}}</h1>
+        {% for j in val[i] %}
             <p>{{j}}</p>
 
         {% endfor %}
-
     {% endfor %}
+    
+
+    
 {% endblock %}
