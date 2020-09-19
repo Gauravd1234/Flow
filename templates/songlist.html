@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block heading %}
+    
+    <title>Flow</title>
+
+{% endblock %}
+
+{% block content %}
+    {% with page='home'%}
+        {% with username=session.get('username') %}
+            {% include 'navbar.html' %}
+        {% endwith %}
+    {% endwith %}
+
+    {% for x in values %}
+        {% for y in x %}
+            <p>{{y}}</p>
+
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

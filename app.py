@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
-
+from spotify import return_song
 
 
 app = Flask(__name__)
@@ -10,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
 
 class User(db.Model):
     # The id variable contains the id of every table and item in the database
@@ -31,16 +32,25 @@ class User(db.Model):
 def home():
     return render_template("home.html")
 
-@app.route("/view")
+
+@app.route("/view", methods=['GET', 'POST'])
 def view():
-    return render_template("view.html", values = User.query.all())
+    if request.method == "POST":
+        i = request.form["ids"]
+
+        #print(return_song(i))
+
+        return render_template("display.html", val=return_song(i).values())
+
+
+    else:
+        return render_template("view.html")
 
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
     if request.method == "POST":
         user = request.form["username"]
         key = request.form["password"]
-
         
         if len(User.query.filter_by(username=user).all()) > 0:
             if (User.query.filter_by(username=user).first().password) == key:

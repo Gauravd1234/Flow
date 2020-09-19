@@ -6,9 +6,11 @@
 
 
 
-{% block code %}
-    {% for item in values %}
-        <p>Username: {{item.username}}, Email: {{item.email}}, Password: {{item.password}}</item></p>
-    {% endfor %}
+{% block content %}
+    
+    <form action= "#" method= "post">
+        <p><input type= "text" placeholder= "Spotify_id" name="ids" required></p>
+        <p><input class="btn btn-default" type= "submit" value="Enter id"></p>
 
+    </form>
 {% endblock %}

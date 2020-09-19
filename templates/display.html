@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Flow
+{% endblock %}
+
+
+
+{% block content %}
+    
+    {% for i in val %}
+        {% for j in i %}
+
+            <p>{{j}}</p>
+
+        {% endfor %}
+
+    {% endfor %}
+{% endblock %}
