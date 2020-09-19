@@ -7,12 +7,17 @@
 
 
 {% block content %}
-    
+    {% with page='display'%}
+        {% with username=session.get('username') %}
+            {% include 'navbar.html' %}
+        {% endwith %}
+    {% endwith %}
+
+
     {% for i in val.keys() %}
         <h1>{{i}}</h1>
         {% for j in val[i] %}
-            <p>{{j}}</p>
-
+            <p>{{j}}<input type="checkbox"></p>
         {% endfor %}
     {% endfor %}
     

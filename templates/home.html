@@ -21,4 +21,11 @@
                     </div>
                 {% endif %}
     {% endwith %}
+    {% if logged_in %}
+      <form action= "#" method= "post">
+        <p><input type= "text" placeholder= "Spotify_id" name="ids" required></p>
+        <p><input class="btn btn-default" type= "submit" value="Enter id"></p>
+
+      </form>
+    {% endif %}
 {% endblock %}

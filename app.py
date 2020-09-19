@@ -28,28 +28,28 @@ class User(db.Model):
 
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("home.html")
+    try:
+        if request.method == "POST":
+                i = request.form["ids"]
 
+                return render_template("display.html", val=return_song(i))
+        else:
+            return render_template("home.html", logged_in=session["logged_in"])
 
-@app.route("/view", methods=['GET', 'POST'])
-def view():
-    if request.method == "POST":
-        i = request.form["ids"]
-
-        return render_template("display.html", val=return_song(i))
-
-
-    else:
-        return render_template("view.html")
+    except:
+            return render_template("home.html", logged_in=False)
+    
 
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
     if request.method == "POST":
         user = request.form["username"]
         key = request.form["password"]
-        
+        session["logged_in"] = True
+
+
         if len(User.query.filter_by(username=user).all()) > 0:
             if (User.query.filter_by(username=user).first().password) == key:
 
