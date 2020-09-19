@@ -38,9 +38,7 @@ def view():
     if request.method == "POST":
         i = request.form["ids"]
 
-        #print(return_song(i))
-
-        return render_template("display.html", val=return_song(i).values())
+        return render_template("display.html", val=return_song(i))
 
 
     else:
