@@ -20,4 +20,18 @@
             </div>
         {% endif %}
     {% endwith %}
+    {% if spotify_id %}
+        <p>Current Spotify ID: {{ spotify_id }}</p>
+    {% else %}
+        <p>Your spotify is not connected! Add it below!</p>
+    {% endif %}
+    <h1>Update Spotify ID</h1>
+    <form action="{{ url_for('home') }}" method="POST">
+        <input type="text" name="spotify_id" required><br>
+        {% if spotify_id %}
+            <input type="submit" value="Change ID">
+        {% else %}
+            <input type="submit" value="Connect ID">
+        {% endif %}
+    </form>
 {% endblock %}

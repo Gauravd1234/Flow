@@ -20,12 +20,11 @@ class User(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))
-    profile_pic = db.Column(db.LargeBinary); 
+    spotify_id = db.Column(db.String(255))
     def __init__(self, username, password, email):
         self.username = username
         self.email = email
         self.password = password
-
 
 
 @app.route("/")
@@ -96,7 +95,8 @@ def register():
 
 @app.route("/profile", methods = ['GET', 'POST'])
 def profile():
-    return render_template("profile.html")
+    current_spotify_id =  User.filter_by(username=session.get("username")).first().spotify_id
+    return render_template("profile.html", spotify_id=current_spotify_id)
 
 @app.route("/logout")
 def logout():
@@ -104,6 +104,13 @@ def logout():
     flash("Successfully logged out!")
     return redirect(url_for("home"))
 
+@app.route("/change_spotify_id", methods=["POST", "GET"])
+def change_spotify_id():
+    spotify_id = request.form["spotify_id"]
+    current_user = User.query.filter_by(username=session.get("username")).first()
+    current_user.spotify_id = spotify_id
+    flash("Spotify ID Successfully Connected")
+    return redirect(url_for("home"))
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
