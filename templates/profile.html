@@ -20,4 +20,37 @@
             </div>
         {% endif %}
     {% endwith %}
+    {% if spotify_id != None %}
+        <p>Current Spotify ID: {{ spotify_id }}</p>
+    {% else %}
+        <p>Your spotify account is not connected! Add it below!</p>
+    {% endif %}
+    <h1>Update Spotify ID</h1>
+    <form action="{{ url_for('change_spotify_id') }}" method="POST">
+        <label for="spotify_id">Spotify ID: </label>
+        <input type="text" name="spotify_id" required><br>
+        <label for="password">Password: </label>
+        <input type="password" name="password" required><br>
+        {% if spotify_id %}
+            <input type="submit" value="Change ID">
+        {% else %}
+            <input type="submit" value="Connect ID">
+        {% endif %}
+    </form>
+    <h1>Change Password</h1>
+        <form action="{{ url_for('change_password') }}" method="POST">
+            <label for="current-password">Current Password</label><br>
+            <input type="password" name="current-password" required><br>
+            <label for="new-password">New Password</label><br>
+            <input type="password" name="new-password" required><br>
+            <input type="submit" value="Change Password">
+        </form>
+    <h1>Change Email</h1>
+        <form action="{{ url_for('change_email') }}" method="POST">
+            <label for="current-email">Current Email</label><br>
+            <input type="text" name="current-email" required><br>
+            <label for="new-email">New Email</label><br>
+            <input type="text" name="new-email" required><br>
+            <input type="submit" value="Change Email">
+        </form>
 {% endblock %}
